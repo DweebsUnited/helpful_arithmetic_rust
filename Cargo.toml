@@ -1,0 +1,11 @@
+[workspace]
+
+members = [
+	"kakuro",
+	"logger",
+	"solver",
+	"dashboard",
+]
+default-members = [
+	"dashboard",
+]
