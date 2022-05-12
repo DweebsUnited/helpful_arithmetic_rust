@@ -1,26 +1,22 @@
-struct Rule {
+pub struct Rule {
 
 	total: u8,
 	combos: Vec<[u8; 9]>
 
 }
 
-struct CellSolutions {
-
-
+pub struct CellSolutions {
 
 }
 
-struct CellNumber {
-
-	&
+pub struct CellNumber {
 
 }
 
-enum CellType {
+pub enum CellType {
 
 }
 
-struct Board {
+pub struct Board {
 
 }
