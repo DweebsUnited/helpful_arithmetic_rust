@@ -16,6 +16,43 @@ pub struct CellCap {
 	rule_left: Option<usize>,
 	rule_right: Option<usize>
 }
+impl CellCap {
+	pub fn new( ) -> Self {
+		Self{
+			rule_up: None,
+			rule_down: None,
+			rule_left: None,
+			rule_right: None }
+	}
+	pub fn set_up( s: &Self, r: Option<usize> ) -> Self {
+		Self{
+			rule_up: r,
+			rule_down: s.rule_down.clone( ),
+			rule_left: s.rule_left.clone( ),
+			rule_right: s.rule_right.clone( ) }
+	}
+	pub fn set_down( s: &Self, r: Option<usize> ) -> Self {
+		Self{
+			rule_up: s.rule_up.clone( ),
+			rule_down: r,
+			rule_left: s.rule_left.clone( ),
+			rule_right: s.rule_right.clone( ) }
+	}
+	pub fn set_left( s: &Self, r: Option<usize> ) -> Self {
+		Self{
+			rule_up: s.rule_up.clone( ),
+			rule_down: s.rule_down.clone( ),
+			rule_left: r,
+			rule_right: s.rule_right.clone( ) }
+	}
+	pub fn set_right( s: &Self, r: Option<usize> ) -> Self {
+		Self{
+			rule_up: s.rule_up.clone( ),
+			rule_down: s.rule_down.clone( ),
+			rule_left: s.rule_left.clone( ),
+			rule_right: r }
+	}
+}
 
 pub struct CellValue {
 	val: Option<u8>,

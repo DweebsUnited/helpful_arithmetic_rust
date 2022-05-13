@@ -59,7 +59,36 @@ impl Board {
 		//     Check if matching cap already has a Rule, link if so
 		//     If not, make a new rule and link us and matching
 
-		Board::new_empty( width, height )
+		let mut b: Board = Board::new_empty( width, height );
+
+		let spiral = crate::utility::SpiralGenerator::new( width, height );
+		let mut first = true;
+
+		for coord in spiral {
+
+			println!( "{}x{}", coord.0, coord.1 );
+
+			// if first {
+
+			// 	if start_cap {
+
+			// 		b.cells.push( Cell::Cap( Cell::CellCap::new( ) ) );
+
+			// 	} else {
+
+			// 		b.cells.push( );
+
+			// 	}
+
+			// 	b.cells.swap_remove( coord.0 + coord.1 * width );
+
+			// 	first = false;
+
+			// }
+
+		}
+
+		b
 
 	}
 
@@ -68,9 +97,7 @@ impl Board {
 	}
 
 	fn new_segment( width: usize, height: usize ) -> Self {
-
 		todo!( );
-
 	}
 
 	fn new_empty( width: usize, height: usize ) -> Self {
