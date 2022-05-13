@@ -1,5 +1,15 @@
 use std::fmt::Display;
 
+// Cells can have a few types
+pub enum Cell {
+
+	Cap( CellCap ),
+	Value( CellValue ),
+
+	Unused
+
+}
+
 pub struct CellCap {
 	rule_up: Option<usize>,
 	rule_down: Option<usize>,
@@ -10,16 +20,6 @@ pub struct CellCap {
 pub struct CellValue {
 	val: Option<u8>,
 	rule: Option<usize>
-}
-
-// Cells can be solution caps, or numerics
-pub enum Cell {
-
-	Cap( CellCap ),
-	Value( CellValue ),
-
-	Unused
-
 }
 
 impl Display for Cell {
