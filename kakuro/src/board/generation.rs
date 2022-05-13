@@ -1,5 +1,5 @@
 pub enum CreationMethod {
-	Spiralfill{ cap_prob: f32, start_cap: bool },
+	Spiralfill{ cap_prob: f32 },
 	Floodfill{ },
 	Segment{ },
 

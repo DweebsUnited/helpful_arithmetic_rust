@@ -58,6 +58,14 @@ pub struct CellValue {
 	val: Option<u8>,
 	rule: Option<usize>
 }
+impl CellValue {
+	pub fn new( ) -> Self {
+		Self{ val: None, rule: None }
+	}
+	pub fn new_from_digit( digit: u8 ) -> Self {
+		Self{ val: Some( digit ), rule: None }
+	}
+}
 
 impl Display for Cell {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

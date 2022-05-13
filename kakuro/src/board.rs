@@ -6,6 +6,8 @@ use crate::cell::*;
 pub mod generation;
 use generation::*;
 
+use rand::Rng;
+
 // This is an arena style allocation of board elements
 pub struct Board {
 
@@ -24,8 +26,8 @@ impl Board {
 	pub fn new( settings: CreationSettings ) -> Self {
 
 		match settings.method {
-			CreationMethod::Spiralfill{ cap_prob, start_cap } => {
-				Board::new_spiralfill( settings.width, settings.height, cap_prob, start_cap )
+			CreationMethod::Spiralfill{ cap_prob } => {
+				Board::new_spiralfill( settings.width, settings.height, cap_prob )
 			},
 			CreationMethod::Floodfill{ } => {
 				Board::new_floodfill( settings.width, settings.height )
@@ -41,18 +43,18 @@ impl Board {
 
 	// Create a new board by a spiral fill algorithm
 	// This will result in a nearly completely filled grid
-	fn new_spiralfill( width: usize, height: usize, cap_prob: f32, start_cap: bool ) -> Self {
+	fn new_spiralfill( width: usize, height: usize, cap_prob: f32 ) -> Self {
 
 		// Stage 1 -- Spiral fill
 		// Run in a spiral centered on middle ( default up and left if even grid size )
 		//   If first cell, set appropriately
-		//   Determine type
+		//   If on the shell, force to cap
+		//   Otherwise pick type randomly
 		//   Set value valid if so picked, cap otherwise
-		//   Add unset neighbors to working list
 
 		// Stage 2 -- Cap -> Rule
 		// For each cap in the grid
-		//   If it has no numeric neighbors, it needs to stay unset, skip
+		//   If it has no numeric neighbors, change to unset, skip
 		//   For each direction
 		//     Find matching cap
 		//     Update cap links
@@ -62,29 +64,19 @@ impl Board {
 		let mut b: Board = Board::new_empty( width, height );
 
 		let spiral = crate::utility::SpiralGenerator::new( width, height );
-		let mut first = true;
+
+		let mut rng: rand::rngs::ThreadRng = rand::thread_rng( );
+		let type_dist = rand::distributions::Bernoulli::new( cap_prob as f64 ).unwrap( );
+		let digit_dist = rand::distributions::Uniform::new_inclusive( 0 as u8, 9 as u8 );
 
 		for coord in spiral {
 
-			println!( "{}x{}", coord.0, coord.1 );
-
-			// if first {
-
-			// 	if start_cap {
-
-			// 		b.cells.push( Cell::Cap( Cell::CellCap::new( ) ) );
-
-			// 	} else {
-
-			// 		b.cells.push( );
-
-			// 	}
-
-			// 	b.cells.swap_remove( coord.0 + coord.1 * width );
-
-			// 	first = false;
-
-			// }
+			if rng.sample( type_dist ) || ( coord.0 == 0 || coord.0 == width - 1 ) || ( coord.1 == 0 || coord.1 == height - 1 ) {
+				b.cells.push( Cell::Cap( CellCap::new( ) ) );
+			} else {
+				b.cells.push( Cell::Value( CellValue::new( ) ) );
+			}
+			b.cells.swap_remove( coord.0 + coord.1 * width );
 
 		}
 
