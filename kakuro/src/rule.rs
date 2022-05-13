@@ -1,7 +1,10 @@
 pub struct Rule {
 
 	pub total: u8,
-	pub combos: Vec<Vec<u8>>
+	pub combos: Vec<Vec<u8>>,
+
+	pub caps: Vec<usize>,
+	pub cells: Vec<usize>,
 
 }
 
@@ -10,7 +13,7 @@ impl Rule {
     pub fn new( total: u8 ) -> Self {
 		let possibles = build_possibles( total );
 
-		Self { total, combos: possibles }
+		Self { total, combos: possibles, caps: Vec::new( ), cells: Vec::new( ) }
 	}
 
 }
