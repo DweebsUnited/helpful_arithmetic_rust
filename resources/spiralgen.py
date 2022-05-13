@@ -2,7 +2,14 @@ def spiral(X, Y):
     x = y = 0
     dx = 0
     dy = -1
-    for i in range(max(X, Y)**2):
+    eol = max(X, Y)**2
+    for i in range(eol):
+        print( "{} < {}".format( i, eol ) )
+        print( "{}<{}<={} - {}<{}<={} -- {}x{}".format(
+            -X/2, x, X/2,
+            -Y/2, y, Y/2,
+            x + X/2, y + Y/2
+        ))
         if (-X/2 < x <= X/2) and (-Y/2 < y <= Y/2):
             print (x, y)
             # DO STUFF...

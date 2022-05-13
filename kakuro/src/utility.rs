@@ -35,20 +35,22 @@ impl Iterator for SpiralGenerator {
 
     fn next(&mut self) -> Option<Self::Item> {
 
-		println!( "{} < {}, {}", self.curr, self.eol, self.width as i32 / 2 );
-		println!( "{:?}", self );
+		// println!( "{} < {}", self.curr, self.eol );
+		// println!( "{:?}", self );
 
 		if self.curr < self.eol {
 
-			println!( "{}<{}<={} - {}<{}<={} -- {}x{}",
-				-( self.width as i32 ) / 2, self.x, ( self.width as i32 ) / 2,
-				-( self.height as i32 ) / 2, self.y, ( self.height as i32 ) / 2,
-				( self.x + ( self.width / 2 - 1 ) as i32 ) as usize, ( self.y + ( self.height / 2 - 1 ) as i32 ) as usize );
+			// println!( "{}<{}<={} - {}<{}<={} -- {}x{}",
+			// 	-( self.width as i32 + 1 ) / 2, self.x, ( self.width as i32 ) / 2,
+			// 	-( self.height as i32 + 1 ) / 2, self.y, ( self.height as i32 ) / 2,
+			// 	( self.x + ( self.width / 2 ) as i32 ) as usize, ( self.y + ( self.height / 2 ) as i32 ) as usize );
 
 			let mut ret = ( 0, 0 );
 
-			if ( -( self.width as i32 ) / 2 < self.x && self.x <= ( self.width as i32 ) / 2 ) &&
-				( -( self.height as i32 ) / 2 < self.y && self.y <= ( self.height as i32 ) / 2 ) {
+			// Have to offset one here to match Python's round-towards-negative-inf
+			if ( -( self.width as i32 + 1 ) / 2 < self.x && self.x <= ( self.width as i32 ) / 2 ) &&
+				( -( self.height as i32 + 1 ) / 2 < self.y && self.y <= ( self.height as i32 ) / 2 ) {
+
 				// This is the tricky part -- This algorithm favors bottom and left when the matrix dims are even
 				// 2->0,1 -> 0, 3->-1,1 -> 0, 4->-1,2 -> 1
 				ret = ( ( self.x + ( self.width / 2 ) as i32 ) as usize, ( self.y + ( self.height / 2 ) as i32 ) as usize );
