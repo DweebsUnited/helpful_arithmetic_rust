@@ -1,2 +1,2 @@
-mod rule;
-mod board;
+pub mod rule;
+pub mod board;
