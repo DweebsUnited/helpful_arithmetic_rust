@@ -19,7 +19,6 @@ pub struct Board {
 
 }
 
-
 impl Board {
 
 	// I want to implement several algorithms and settings for
@@ -67,9 +66,10 @@ impl Board {
 
 		let mut rng: rand::rngs::ThreadRng = rand::thread_rng( );
 		let type_dist = rand::distributions::Bernoulli::new( cap_prob as f64 ).unwrap( );
-		let digit_dist = rand::distributions::Uniform::new_inclusive( 0 as u8, 9 as u8 );
 
 		for coord in spiral {
+
+			let valid_digits: Vec<u8> = find_valid_digits( b, coord );
 
 			if rng.sample( type_dist ) || ( coord.0 == 0 || coord.0 == width - 1 ) || ( coord.1 == 0 || coord.1 == height - 1 ) {
 				b.cells.push( Cell::Cap( CellCap::new( ) ) );
@@ -105,6 +105,33 @@ impl Board {
 		}
 
 		b
+
+	}
+
+	fn find_valid_digits( coord: ( usize, usize ) ) -> Vec<u8> {
+
+		let mut valid_digits:Vec<u8> = vec![ 1, 2, 3, 4, 5, 6, 7, 8, 9 ];
+
+		// The case where more than 9 must be capped is easily handled, because the vector will then be empty
+		// Because we fill as we go, there can be no valid solution in that case
+
+		// Loop up until non-value cell
+		let dx = 0;
+		let dy = -1;
+
+		// Loop down
+		let dx = 0;
+		let dy = -1;
+
+		// Loop left
+		let dx = 0;
+		let dy = -1;
+
+		// Loop right
+		let dx = 0;
+		let dy = -1;
+
+		valid_digits
 
 	}
 
